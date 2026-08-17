@@ -32,7 +32,10 @@ export function markdownReport(input: ReportInput): string {
     "## Changed files",
   ];
   for (const file of input.changedFiles) {
-    lines.push(`- ${inlineCode(file.path)} (${file.status})`);
+    const path = file.previousPath
+      ? `${inlineCode(file.previousPath)} → ${inlineCode(file.path)}`
+      : inlineCode(file.path);
+    lines.push(`- ${path} (${file.status})`);
   }
   lines.push("", "## Validation output");
   for (const result of input.validationResults) {

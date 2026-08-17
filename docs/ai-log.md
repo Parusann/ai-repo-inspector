@@ -36,3 +36,10 @@ This log records material human and AI contributions as they happen. It is evide
 - **AI-agent contribution:** Added adaptive Markdown fences, safe inline-code delimiters for paths and commands, validation status labels, a repository-data warning, and a 32,000-character MCP cap.
 - **Verification:** Tests cover a filename containing a backtick, output containing a triple-backtick fence plus instruction-like text, and a fixed-size response ending in `inspector-output-truncated` with original and limit lengths.
 - **Correction or rejection:** The agent selected an explicit HTML-comment truncation marker instead of a silent cut. It is readable by a model, preserves valid Markdown better than a bare suffix, and exposes both the original and returned limits.
+
+## 2026-08-17 17:21 ET — Git change parsing
+
+- **Candidate contribution:** The prior plan grouped rename parsing, CRLF handling, exotic filenames, default-branch resolution, and option-like base refs as one class of Git-boundary defects.
+- **AI-agent contribution:** Switched to NUL-delimited `git diff` output, represented rename/copy source paths explicitly, resolved `main` or `master` instead of hardcoding one branch, verified requested refs, and terminated diff revisions with `--`.
+- **Verification:** A generated repository whose directory contains spaces uses `master`, renames a spaced filename, and adds a backtick/hash filename. Tests assert the exact structured result and reject an option-like base ref.
+- **Correction or rejection:** The agent followed the candidate's rejection of a narrow `.split(/\\r?\\n/)` patch. NUL-delimited output addresses CRLF and valid filenames containing newlines as one protocol-level fix.
