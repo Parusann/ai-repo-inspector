@@ -29,3 +29,10 @@ This log records material human and AI contributions as they happen. It is evide
 - **AI-agent contribution:** Replaced MCP's arbitrary `validationCommands` input with the named checks `typecheck`, `test`, and `build`, made the input schema strict, and documented the limitation in the tool description.
 - **Verification:** Adapter tests prove named checks map to expected commands and the former arbitrary-command field fails schema validation.
 - **Correction or rejection:** The agent chose whole-call rejection for an allowlist miss. A refused capability should be unmistakable; silently ignoring it could make an agent believe a check ran when it did not.
+
+## 2026-08-17 17:18 ET — Model-facing output boundary
+
+- **Candidate contribution:** The prior plan identified Markdown fence breakout and unbounded model-context output as a priority-one trust-boundary problem.
+- **AI-agent contribution:** Added adaptive Markdown fences, safe inline-code delimiters for paths and commands, validation status labels, a repository-data warning, and a 32,000-character MCP cap.
+- **Verification:** Tests cover a filename containing a backtick, output containing a triple-backtick fence plus instruction-like text, and a fixed-size response ending in `inspector-output-truncated` with original and limit lengths.
+- **Correction or rejection:** The agent selected an explicit HTML-comment truncation marker instead of a silent cut. It is readable by a model, preserves valid Markdown better than a bare suffix, and exposes both the original and returned limits.
