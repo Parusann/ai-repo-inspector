@@ -6,7 +6,7 @@ This log records material human and AI contributions as they happen. It is evide
 
 - **Candidate contribution:** Supplied the prior findings inventory, priority order, hybrid-interface thesis, verification plan, and instruction to execute the assessment end to end. The candidate remained available for authentication or judgment calls.
 - **AI-agent contribution:** Started the timed execution session, re-read the official starter instructions, confirmed the 90-focused-minute rule, and created a fresh local repository from the current template contents.
-- **Verification:** The fresh repository was initialized on `main` and committed as template commit `4cea075` before any product changes.
+- **Verification:** The fresh repository was initialized on `main`; after the public template repository was created, the work was replayed onto its unchanged initial template commit `9b0ca86` before publication.
 - **Correction or rejection:** None in this step.
 
 ## 2026-08-17 17:28 ET — Self-review of truncation behavior
