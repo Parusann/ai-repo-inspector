@@ -81,7 +81,7 @@ The log separately records an agent self-correction: after its first truncation 
 ```
 
 - A raw MCP request then supplied the removed `validationCommands` field with a benign command that would create `PROOF_OF_BOUNDARY.txt`. The response was `isError: true`, JSON-RPC tool error `-32602`, with `unrecognized_keys: ["validationCommands"]`; a filesystem check returned `PROOF_FILE_EXISTS=False`.
-- GitHub Actions: `<ACTIONS_RUN_URL>`
+- GitHub Actions: [Public checks run 32071313675](https://github.com/Parusann/ai-repo-inspector/actions/runs/32071313675) — `npm ci`, typecheck, build, and all tests passed on Ubuntu.
 
 ## A blocker you hit and how you approached it
 
@@ -100,5 +100,6 @@ The starter's version drift is also documented but lower priority than those thr
 ## Approximate focused-work time
 
 - Timed execution start: **2026-08-17 17:08:52 ET**
-- Timed execution finish: **<FINISH_TIME_ET>**
+- Timed execution finish: **2026-08-17 17:30:19 ET**
+- Timed execution duration: **21 minutes 27 seconds**
 - Pre-execution work: the findings inventory, prioritization, interface thesis, and verification plan were prepared before this timed implementation session and are disclosed separately rather than folded into the execution window.

@@ -9,13 +9,6 @@ This log records material human and AI contributions as they happen. It is evide
 - **Verification:** The fresh repository was initialized on `main`; after the public template repository was created, the work was replayed onto its unchanged initial template commit `9b0ca86` before publication.
 - **Correction or rejection:** None in this step.
 
-## 2026-08-17 17:28 ET — Self-review of truncation behavior
-
-- **Candidate contribution:** Required evidence-backed review rather than stopping when the first test suite passed.
-- **AI-agent contribution:** Re-read the boundary code and found two edge cases: a later output chunk could be dropped without setting the validation truncation flag, and a final MCP character cut could leave its marker inside an open Markdown fence.
-- **Verification:** Added an over-limit process-output test. Truncated MCP reports now put the machine-readable marker before an HTML-escaped preview in a closed `<pre>` block, with the existing fixed-length assertion still enforced.
-- **Correction or rejection:** The agent corrected its own first truncation implementation after review. This is recorded as agent self-correction, not attributed to the candidate.
-
 ## 2026-08-17 17:10 ET — Baseline and first contract fix
 
 - **Candidate contribution:** The supplied plan prioritized the silent MCP repository mismatch ahead of broader cleanup and required a before/after JSON-RPC transcript.
@@ -56,4 +49,18 @@ This log records material human and AI contributions as they happen. It is evide
 - **Candidate contribution:** The prior inventory identified the spaced-path truncation, inert JSON flag, and package binary pointing at a file the build did not produce.
 - **AI-agent contribution:** Preserved already-tokenized CLI paths, validated formats, implemented JSON output, selected the matching report extension, and introduced a source-only build configuration so `dist/cli.js` matches the package `bin` field. Tests now exclude generated build output.
 - **Verification:** Unit tests cover a spaced repository path, invalid format rejection, and parseable JSON. The final gate checks that `dist/cli.js` exists and that the CLI runs against the edge-case fixture.
+- **Correction or rejection:** None in this step.
+
+## 2026-08-17 17:28 ET — Self-review of truncation behavior
+
+- **Candidate contribution:** Required evidence-backed review rather than stopping when the first test suite passed.
+- **AI-agent contribution:** Re-read the boundary code and found two edge cases: a later output chunk could be dropped without setting the validation truncation flag, and a final MCP character cut could leave its marker inside an open Markdown fence.
+- **Verification:** Added an over-limit process-output test. Truncated MCP reports now put the machine-readable marker before an HTML-escaped preview in a closed `<pre>` block, with the existing fixed-length assertion still enforced.
+- **Correction or rejection:** The agent corrected its own first truncation implementation after review. This is recorded as agent self-correction, not attributed to the candidate.
+
+## 2026-08-17 17:29 ET — Publication and final gate
+
+- **Candidate contribution:** Completed GitHub's device authorization when the saved credential was found to be invalid.
+- **AI-agent contribution:** Created the public repository from the official Xsolla template, replayed the verified commits onto its unchanged template commit, scanned tracked content for tokens, machine paths, and fixture data, pushed the work, and monitored GitHub Actions.
+- **Verification:** The final local gate passed typecheck, build, and 15 tests across five files. [Public checks run 32071313675](https://github.com/Parusann/ai-repo-inspector/actions/runs/32071313675) passed `npm ci`, typecheck, build, and tests on Ubuntu.
 - **Correction or rejection:** None in this step.
