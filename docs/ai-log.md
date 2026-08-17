@@ -15,3 +15,10 @@ This log records material human and AI contributions as they happen. It is evide
 - **AI-agent contribution:** Installed dependencies, captured the baseline, reproduced the MCP mismatch over raw JSON-RPC, and implemented a typed adapter that maps the public `repo_path` field to the core request.
 - **Verification:** Before the fix, a valid request for the upstream reference clone returned `# Review Report: undefined`. The regression test asserts the declared field reaches the core as `/work/requested`.
 - **Correction or rejection:** The agent did not apply the tempting one-line rename inside an `any`-typed callback. It moved the mapping into a Zod-derived typed boundary so future schema drift is compile-time visible. This was a decision already identified in the candidate's prior plan, then re-verified against the source.
+
+## 2026-08-17 17:14 ET — Failed validations and shell boundary
+
+- **Candidate contribution:** The prior plan required failed checks to remain visible in the report and called for removing shell execution while retaining CLI validation capability.
+- **AI-agent contribution:** Replaced `exec` with bounded `spawn(..., { shell: false })`, added a small quoted-argument parser, and made non-zero exits return `status: "failed"` instead of aborting the review.
+- **Verification:** Regression tests execute both a passing Node command and a benign command that prints `expected failure` and exits 7. A separate assertion confirms a quoted argument remains one argument.
+- **Correction or rejection:** None in this step; the implementation follows the already selected trust-boundary direction.
