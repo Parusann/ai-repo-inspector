@@ -35,6 +35,8 @@ describe("markdownReport", () => {
     expect(capped).toContain("inspector-output-truncated");
     expect(capped).toContain("original_chars=500");
     expect(capped).toContain("limit=120");
+    expect(capped).toContain("<pre>");
+    expect(capped).toContain("</pre>");
   });
 
   it("produces structured JSON when requested by the CLI", () => {

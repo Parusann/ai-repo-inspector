@@ -9,6 +9,13 @@ This log records material human and AI contributions as they happen. It is evide
 - **Verification:** The fresh repository was initialized on `main` and committed as template commit `4cea075` before any product changes.
 - **Correction or rejection:** None in this step.
 
+## 2026-08-17 17:28 ET — Self-review of truncation behavior
+
+- **Candidate contribution:** Required evidence-backed review rather than stopping when the first test suite passed.
+- **AI-agent contribution:** Re-read the boundary code and found two edge cases: a later output chunk could be dropped without setting the validation truncation flag, and a final MCP character cut could leave its marker inside an open Markdown fence.
+- **Verification:** Added an over-limit process-output test. Truncated MCP reports now put the machine-readable marker before an HTML-escaped preview in a closed `<pre>` block, with the existing fixed-length assertion still enforced.
+- **Correction or rejection:** The agent corrected its own first truncation implementation after review. This is recorded as agent self-correction, not attributed to the candidate.
+
 ## 2026-08-17 17:10 ET — Baseline and first contract fix
 
 - **Candidate contribution:** The supplied plan prioritized the silent MCP repository mismatch ahead of broader cleanup and required a before/after JSON-RPC transcript.

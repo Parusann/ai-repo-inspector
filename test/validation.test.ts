@@ -25,4 +25,14 @@ describe("validation execution", () => {
       ["--flag", "value with spaces"],
     ]);
   });
+
+  it("marks output that exceeds the validation capture limit", async () => {
+    const result = await runValidation(
+      `node -e "process.stdout.write('x'.repeat(70000))"`,
+      process.cwd(),
+    );
+
+    expect(result.status).toBe("passed");
+    expect(result.output).toContain("validation output truncated");
+  });
 });

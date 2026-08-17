@@ -50,7 +50,10 @@ export function jsonReport(input: ReportInput): string {
 
 export function capAgentReport(report: string, limit = MCP_REPORT_LIMIT): string {
   if (report.length <= limit) return report;
-  const marker = `\n\n<!-- inspector-output-truncated original_chars=${report.length} limit=${limit} -->`;
-  if (marker.length >= limit) return marker.slice(0, limit);
-  return report.slice(0, limit - marker.length) + marker;
+  const marker = `<!-- inspector-output-truncated original_chars=${report.length} limit=${limit} -->`;
+  const prefix = `# Review Report (truncated)\n\n${marker}\n\n<pre>\n`;
+  const suffix = "\n</pre>";
+  if (prefix.length + suffix.length >= limit) return marker.slice(0, limit);
+  const escaped = report.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+  return prefix + escaped.slice(0, limit - prefix.length - suffix.length) + suffix;
 }

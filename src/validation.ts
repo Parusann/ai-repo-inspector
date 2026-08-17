@@ -62,7 +62,10 @@ export function runValidation(command: string, cwd: string): Promise<ValidationR
     let timedOut = false;
 
     const capture = (chunk: Buffer) => {
-      if (output.length >= MAX_VALIDATION_OUTPUT) return;
+      if (output.length >= MAX_VALIDATION_OUTPUT) {
+        truncated = true;
+        return;
+      }
       const remaining = MAX_VALIDATION_OUTPUT - output.length;
       const text = chunk.toString("utf8");
       output += text.slice(0, remaining);
