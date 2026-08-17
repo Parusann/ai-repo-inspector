@@ -43,3 +43,10 @@ This log records material human and AI contributions as they happen. It is evide
 - **AI-agent contribution:** Switched to NUL-delimited `git diff` output, represented rename/copy source paths explicitly, resolved `main` or `master` instead of hardcoding one branch, verified requested refs, and terminated diff revisions with `--`.
 - **Verification:** A generated repository whose directory contains spaces uses `master`, renames a spaced filename, and adds a backtick/hash filename. Tests assert the exact structured result and reject an option-like base ref.
 - **Correction or rejection:** The agent followed the candidate's rejection of a narrow `.split(/\\r?\\n/)` patch. NUL-delimited output addresses CRLF and valid filenames containing newlines as one protocol-level fix.
+
+## 2026-08-17 17:24 ET — CLI contract and packaging
+
+- **Candidate contribution:** The prior inventory identified the spaced-path truncation, inert JSON flag, and package binary pointing at a file the build did not produce.
+- **AI-agent contribution:** Preserved already-tokenized CLI paths, validated formats, implemented JSON output, selected the matching report extension, and introduced a source-only build configuration so `dist/cli.js` matches the package `bin` field. Tests now exclude generated build output.
+- **Verification:** Unit tests cover a spaced repository path, invalid format rejection, and parseable JSON. The final gate checks that `dist/cli.js` exists and that the CLI runs against the edge-case fixture.
+- **Correction or rejection:** None in this step.

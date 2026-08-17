@@ -44,6 +44,10 @@ export function markdownReport(input: ReportInput): string {
   return lines.join("\n");
 }
 
+export function jsonReport(input: ReportInput): string {
+  return JSON.stringify(input, null, 2);
+}
+
 export function capAgentReport(report: string, limit = MCP_REPORT_LIMIT): string {
   if (report.length <= limit) return report;
   const marker = `\n\n<!-- inspector-output-truncated original_chars=${report.length} limit=${limit} -->`;

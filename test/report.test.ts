@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { capAgentReport, markdownReport } from "../src/report.js";
+import { capAgentReport, jsonReport, markdownReport } from "../src/report.js";
 
 describe("markdownReport", () => {
   it("lists changed files and validation output", () => {
@@ -35,5 +35,19 @@ describe("markdownReport", () => {
     expect(capped).toContain("inspector-output-truncated");
     expect(capped).toContain("original_chars=500");
     expect(capped).toContain("limit=120");
+  });
+
+  it("produces structured JSON when requested by the CLI", () => {
+    const report = jsonReport({
+      repositoryPath: "/work/sample",
+      changedFiles: [{ path: "src/index.ts", status: "modified" }],
+      validationResults: [],
+    });
+
+    expect(JSON.parse(report)).toEqual({
+      repositoryPath: "/work/sample",
+      changedFiles: [{ path: "src/index.ts", status: "modified" }],
+      validationResults: [],
+    });
   });
 });

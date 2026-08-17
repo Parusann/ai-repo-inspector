@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { writeFileSync } from "node:fs";
+import { pathToFileURL } from "node:url";
 import { reviewRepository } from "./core.js";
 
 type Args = {
@@ -10,24 +11,30 @@ type Args = {
   validations: string[];
 };
 
-function parseArgs(argv: string[]): Args {
+export function parseArgs(argv: string[]): Args {
   const args: Args = { command: argv[0] ?? "", validations: [] };
   for (let index = 1; index < argv.length; index++) {
     const token = argv[index];
     if (token === "--repo") {
-      args.repositoryPath = argv[++index]?.split(" ")[0];
+      args.repositoryPath = argv[++index];
     } else if (token === "--base-ref") {
       args.baseRef = argv[++index];
     } else if (token === "--format") {
-      args.format = argv[++index] as Args["format"];
+      const format = argv[++index];
+      if (format !== "markdown" && format !== "json") {
+        throw new Error(`Unsupported format: ${format ?? "(missing)"}`);
+      }
+      args.format = format;
     } else if (token === "--validate") {
-      args.validations.push(argv[++index]);
+      const validation = argv[++index];
+      if (!validation) throw new Error("--validate requires a command.");
+      args.validations.push(validation);
     }
   }
   return args;
 }
 
-async function main() {
+export async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.command !== "review" || !args.repositoryPath) {
     console.error("Usage: inspector review --repo <path> [--base-ref <ref>] [--validate <command>]");
@@ -41,11 +48,14 @@ async function main() {
     validationCommands: args.validations,
     format: args.format,
   });
-  writeFileSync("review-report.md", report, "utf8");
-  console.log("Review report written to review-report.md");
+  const outputPath = args.format === "json" ? "review-report.json" : "review-report.md";
+  writeFileSync(outputPath, report, "utf8");
+  console.log(`Review report written to ${outputPath}`);
 }
 
-main().catch((error) => {
-  console.error("Fatal error:", error);
-  process.exitCode = 1;
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error("Fatal error:", error);
+    process.exitCode = 1;
+  });
+}
