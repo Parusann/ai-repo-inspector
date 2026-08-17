@@ -22,3 +22,10 @@ This log records material human and AI contributions as they happen. It is evide
 - **AI-agent contribution:** Replaced `exec` with bounded `spawn(..., { shell: false })`, added a small quoted-argument parser, and made non-zero exits return `status: "failed"` instead of aborting the review.
 - **Verification:** Regression tests execute both a passing Node command and a benign command that prints `expected failure` and exits 7. A separate assertion confirms a quoted argument remains one argument.
 - **Correction or rejection:** None in this step; the implementation follows the already selected trust-boundary direction.
+
+## 2026-08-17 17:16 ET — MCP capability allowlist
+
+- **Candidate contribution:** Selected a hybrid interface with an asymmetric trust boundary: developers retain CLI validation commands, while model callers receive a smaller capability set.
+- **AI-agent contribution:** Replaced MCP's arbitrary `validationCommands` input with the named checks `typecheck`, `test`, and `build`, made the input schema strict, and documented the limitation in the tool description.
+- **Verification:** Adapter tests prove named checks map to expected commands and the former arbitrary-command field fails schema validation.
+- **Correction or rejection:** The agent chose whole-call rejection for an allowlist miss. A refused capability should be unmistakable; silently ignoring it could make an agent believe a check ran when it did not.
